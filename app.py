@@ -51,13 +51,12 @@ def main():
 
     player_info_map = handle_csv_lines(csv_lines)
 
-    print("休闲模式 Rating 排名")
     print(f"总对战数：{len(csv_lines)}")
-    print("======================")
+    print("=======================")
     print(PlayerInfoList(player_info_map.values()))
     print()
-    print("最近一场比赛")
-    print("======================")
+    print("最近一场")
+    print("=======================")
     names = parse_names(csv_lines[-1])
     print(PlayerInfoList([player_info_map[name] for name in names]))
 

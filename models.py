@@ -6,7 +6,7 @@ class PlayerInfo:
         self.name = name
 
     def __str__(self):
-        return f' {self.place:2d}   {self.rating}     {self.games_played:2d} {self.name}'
+        return f' {self.place:2d}   {self.rating}    {self.games_played:2d}   {self.name}'
 
 
 class PlayerInfoList:
