@@ -1,6 +1,8 @@
+import glob
+import os
 import sys
 
-from config import INIT_RATING, PLAYER_NUM
+from config import INIT_RATING, PLAYER_NUM, TARGET_DIR
 from models import PlayerInfo, PlayerInfoList
 
 
@@ -41,10 +43,18 @@ def handle_csv_lines(csv_lines):
 
 
 def main():
-    file_name = 'records.csv'
+    file_path = 'records.csv'
     if len(sys.argv) > 1:
-        file_name = sys.argv[1]
-    with open(file_name, 'rb') as f:
+        file_path = sys.argv[1]
+    elif TARGET_DIR:
+        max_modification_time = 0
+        for path in glob.glob(os.path.join(TARGET_DIR, "*.csv")):
+            mtime = os.path.getmtime(path)
+            if mtime > max_modification_time:
+                max_modification_time = mtime
+                file_path = path
+
+    with open(file_path, 'rb') as f:
         csv_lines = f.readlines()[1:]  # 去掉列名行
     csv_lines = [line.decode('utf-8') for line in csv_lines]
     csv_lines = csv_lines[::-1]  # 按时间正序
