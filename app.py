@@ -31,10 +31,15 @@ def handle_csv_lines(csv_lines):
             games_played_map[name] = games_played + 1
 
     player_info_map = {}
-    sorted_ratings = sorted(rating_map.items(), key=lambda x: x[1], reverse=True)
-    for place, kv_pair in enumerate(sorted_ratings, 1):
+    sorted_ratings = sorted(rating_map.items(), key=lambda x: -x[1])
+    for idx, kv_pair in enumerate(sorted_ratings):
         name, rating = kv_pair
         rating = round(rating)
+        place = idx + 1
+        if idx > 0:
+            prev_pi = player_info_map[sorted_ratings[idx - 1][0]]
+            if rating == prev_pi.rating:
+                place = prev_pi.place
         games_played = games_played_map[name]
         player_info_map[name] = PlayerInfo(place, rating, games_played, name)
     return player_info_map
