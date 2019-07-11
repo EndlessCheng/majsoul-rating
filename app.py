@@ -70,6 +70,11 @@ def main():
     print("=======================")
     print(PlayerInfoList(player_info_map.values()))
     print()
+    min_played = 10
+    print(f"对战数 ≥{min_played}")
+    print("=======================")
+    print(PlayerInfoList([pi for pi in player_info_map.values() if pi.games_played >= min_played]))
+    print()
     print("最近一场")
     print("=======================")
     names = parse_names(csv_lines[-1])
